@@ -1,1 +1,3 @@
-# Mayo.TimeTracker
+# Purpose
+
+Time tracking software that utilizes sql lite
