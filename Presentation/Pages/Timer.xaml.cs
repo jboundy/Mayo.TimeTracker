@@ -12,23 +12,31 @@ namespace Presentation.Pages
     /// </summary>
     public partial class Timer : Page
     {
-        public Stopwatch TimerWatch { get; set; }
+        public Stopwatch _timerWatch { get; set; }
         public Timer()
         {
             InitializeComponent();
-            TimerWatch = new Stopwatch();
+            _timerWatch = new Stopwatch();
         }
 
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
-            TimerWatch.Stop();
-            var page = new Category(TimerWatch.Elapsed);
-            NavigationService.Navigate(page);
+            if (!_timerWatch.IsRunning)
+            {
+                MessageBox.Show("Timer is not running");
+            }
+            else
+            {
+                _timerWatch.Stop();
+                var page = new Category(_timerWatch.Elapsed);
+                NavigationService.Navigate(page);
+            }
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            TimerWatch.Start();
+            rbTimeStarted.IsChecked = true;
+            _timerWatch.Start();
         }
     }
 }
