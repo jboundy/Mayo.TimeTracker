@@ -3,7 +3,7 @@ using RulesEngine.Models;
 namespace BusinessRules.Tests
 {
     [TestClass]
-    public class TimerRulesTests
+    public class RuleEngineTests
     {
         [TestMethod]
         public void RuleExpressionCountLessThan3_Input4_AssertsFalse()
@@ -166,6 +166,62 @@ namespace BusinessRules.Tests
             Assert.IsTrue(success.All(x => x == true));
         }
 
+        [TestMethod]
+        public void RuleExpressionDateLessThanToday_InputTomrrow_AssertsTrue()
+        {
+            List<Rule> rules = new List<Rule>()
+            {
+                RuleExpressionTodayLessThanDate()
+            };
+
+            var workflows = new List<Workflow>();
+
+            workflows = AddRuleToExampleWorkflow(workflows, rules);
+
+            var bre = new RulesEngine.RulesEngine(workflows.ToArray());
+
+            var input = new
+            {
+                today = DateTime.Now,
+                date = DateTime.Now.AddDays(1)
+            };
+            List<RuleResultTree> responses = ExecuteAllRules(workflows, input);
+
+            List<bool> success = new List<bool>();
+
+            success.AddRange(responses.Select(x => x.IsSuccess));
+
+            Assert.IsTrue(success.All(x => x == true));
+        }
+
+
+        [TestMethod]
+        public void RuleExpressionDateLessThanToday_InputYesterday_AssertsFalse()
+        {
+            List<Rule> rules = new List<Rule>()
+            {
+                RuleExpressionTodayLessThanDate()
+            };
+
+            var workflows = new List<Workflow>();
+
+            workflows = AddRuleToExampleWorkflow(workflows, rules);
+
+            var bre = new RulesEngine.RulesEngine(workflows.ToArray());
+
+            var input = new
+            {
+                today = DateTime.Now,
+                date = DateTime.Now.AddDays(-1)
+            };
+            List<RuleResultTree> responses = ExecuteAllRules(workflows, input);
+
+            List<bool> success = new List<bool>();
+
+            success.AddRange(responses.Select(x => x.IsSuccess));
+
+            Assert.IsFalse(success.All(x => x == true));
+        }
 
         private Rule RuleExpressionCountLessThan3()
         {
@@ -188,6 +244,19 @@ namespace BusinessRules.Tests
                 SuccessEvent = "Count is within tolerance.",
                 ErrorMessage = "Over expected.",
                 Expression = "count > 3",
+                RuleExpressionType = RuleExpressionType.LambdaExpression
+            };
+            return rule;
+        }
+
+        private Rule RuleExpressionTodayLessThanDate()
+        {
+            Rule rule = new Rule
+            {
+                RuleName = "Test Rule",
+                SuccessEvent = "Date is within tolerance.",
+                ErrorMessage = "Date expected.",
+                Expression = "today < date",
                 RuleExpressionType = RuleExpressionType.LambdaExpression
             };
             return rule;
