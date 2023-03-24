@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using Presentation.Pages;
+using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace Presentation
 {
@@ -9,10 +12,17 @@ namespace Presentation
     /// </summary>
     public partial class Category : Page
     {
+        public TimeSpan TimeElapsed { get; set; }
         public Category()
         {
             InitializeComponent();
         }
+
+        public Category(TimeSpan t) : this()
+        {
+            TimeElapsed = t;
+        }
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             var checkedValue = ControlGrid.Children.OfType<RadioButton>()
