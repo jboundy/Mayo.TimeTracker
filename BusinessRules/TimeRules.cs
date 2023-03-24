@@ -14,10 +14,5 @@ namespace BusinessRules
         {
             
         }
-
-        public void Initialize()
-        {
-           
-        }
     }
 }
