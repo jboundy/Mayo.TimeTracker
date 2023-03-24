@@ -39,6 +39,14 @@ namespace Presentation
                 {
                     //get all content and save to db
                 }
+                else
+                {
+                    MessageBox.Show("Input for category has no data");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No category has been selected");
             }
         }
     }
