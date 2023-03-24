@@ -17,7 +17,11 @@ namespace BusinessRules.Tests
 
             workflows = AddRuleToExampleWorkflow(workflows, rules);
 
-            List<RuleResultTree> responses = ExecuteAllRules(workflows, 4);
+            var input = new
+            {
+                count = 4
+            };
+            List<RuleResultTree> responses = ExecuteAllRules(workflows, input);
 
             List<bool> success = new List<bool>();
 
@@ -41,7 +45,11 @@ namespace BusinessRules.Tests
 
             var bre = new RulesEngine.RulesEngine(workflows.ToArray());
 
-            List<RuleResultTree> responses = ExecuteAllRules(workflows, 2);
+            var input = new
+            {
+                count = 2
+            };
+            List<RuleResultTree> responses = ExecuteAllRules(workflows, input);
 
             List<bool> success = new List<bool>();
 
@@ -64,7 +72,11 @@ namespace BusinessRules.Tests
 
             var bre = new RulesEngine.RulesEngine(workflows.ToArray());
 
-            List<RuleResultTree> responses = ExecuteAllRules(workflows, 3);
+            var input = new
+            {
+                count = 3
+            };
+            List<RuleResultTree> responses = ExecuteAllRules(workflows, input);
 
             List<bool> success = new List<bool>();
 
@@ -87,7 +99,11 @@ namespace BusinessRules.Tests
 
             var bre = new RulesEngine.RulesEngine(workflows.ToArray());
 
-            List<RuleResultTree> responses = ExecuteAllRules(workflows, 2);
+            var input = new
+            {
+                count = 2
+            };
+            List<RuleResultTree> responses = ExecuteAllRules(workflows, input);
 
             List<bool> success = new List<bool>();
 
@@ -97,7 +113,34 @@ namespace BusinessRules.Tests
         }
 
         [TestMethod]
-        public void RuleExpressionCountGreaterThan3_Input4_AssertsFalse()
+        public void RuleExpressionCountGreaterThan3_Input3_AssertsFalse()
+        {
+            List<Rule> rules = new List<Rule>()
+            {
+                RuleExpressionCountGreaterThan3()
+            };
+
+            var workflows = new List<Workflow>();
+
+            workflows = workflows = AddRuleToExampleWorkflow(workflows, rules);
+
+            var bre = new RulesEngine.RulesEngine(workflows.ToArray());
+
+            var input = new
+            {
+                count = 3
+            };
+            List<RuleResultTree> responses = ExecuteAllRules(workflows, input);
+
+            List<bool> success = new List<bool>();
+
+            success.AddRange(responses.Select(x => x.IsSuccess));
+
+            Assert.IsFalse(success.All(x => x == true));
+        }
+
+        [TestMethod]
+        public void RuleExpressionCountGreaterThan3_Input4_AssertsTrue()
         {
             List<Rule> rules = new List<Rule>()
             {
@@ -110,13 +153,17 @@ namespace BusinessRules.Tests
 
             var bre = new RulesEngine.RulesEngine(workflows.ToArray());
 
-            List<RuleResultTree> responses = ExecuteAllRules(workflows, 4);
+            var input = new
+            {
+                count = 4
+            };
+            List<RuleResultTree> responses = ExecuteAllRules(workflows, input);
 
             List<bool> success = new List<bool>();
 
             success.AddRange(responses.Select(x => x.IsSuccess));
 
-            Assert.IsFalse(success.All(x => x == true));
+            Assert.IsTrue(success.All(x => x == true));
         }
 
 
