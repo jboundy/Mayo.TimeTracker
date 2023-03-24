@@ -8,7 +8,7 @@ namespace DAL.Factory
         public TimeTrackerContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<TimeTrackerContext>();
-//todo: add whatever dbcontextbuilder option conneciton thingy here
+            optionsBuilder.UseSqlite("Data Source=c:\\timetracker.db;Version=3;");
             return new TimeTrackerContext(optionsBuilder.Options);
         }
     }
