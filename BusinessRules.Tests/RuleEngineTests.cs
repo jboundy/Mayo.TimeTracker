@@ -43,6 +43,8 @@ namespace BusinessRules.Tests
 
             workflows = AddRuleToExampleWorkflow(workflows, rules);
 
+            var workflow = new Workflow();
+          
             var bre = new RulesEngine.RulesEngine(workflows.ToArray());
 
             var input = new
@@ -223,6 +225,35 @@ namespace BusinessRules.Tests
             Assert.IsFalse(success.All(x => x == true));
         }
 
+
+        [TestMethod]
+        public void RuleExpressionDateLessThanToday_InputYesterday_ExecuteWithoutRules_AssertsFalse()
+        {
+            List<Rule> rules = new List<Rule>()
+            {
+                RuleExpressionTodayLessThanDate()
+            };
+
+            var workflows = new List<Workflow>();
+            workflows.Add(AddRuleToExampleWorkflow("Workflow Date1", rules));
+            workflows.Add(AddRuleToExampleWorkflow("Workflow Date2", rules));
+
+            var bre = new RulesEngine.RulesEngine(workflows.ToArray());
+
+            var input = new
+            {
+                today = DateTime.Now,
+                date = DateTime.Now.AddDays(-1)
+            };
+            List<RuleResultTree> responses = ExecuteWorkflowRulesInRulesEngine(workflows, input);
+
+            List<bool> success = new List<bool>();
+
+            success.AddRange(responses.Select(x => x.IsSuccess));
+
+            Assert.IsFalse(success.All(x => x == true));
+        }
+
         private Rule RuleExpressionCountLessThan3()
         {
             Rule rule = new Rule
@@ -270,6 +301,28 @@ namespace BusinessRules.Tests
 
             workflows.Add(exampleWorkflow);
             return workflows;
+        }
+
+        private Workflow AddRuleToExampleWorkflow(string workflowName, List<Rule> rules)
+        {
+            Workflow workflow = new Workflow();
+            workflow.WorkflowName = workflowName;
+            workflow.Rules = rules;
+            return workflow;
+        }
+
+
+        private static List<RuleResultTree> ExecuteWorkflowRulesInRulesEngine(List<Workflow> workflows, object input)
+        {
+            var bre = new RulesEngine.RulesEngine(workflows.ToArray());
+            var responses = new List<RuleResultTree>();
+            foreach (var workflow in workflows)
+            {
+                responses.AddRange(bre.ExecuteAllRulesAsync(workflow.WorkflowName, input).Result);
+
+            }
+
+            return responses;
         }
 
 

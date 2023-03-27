@@ -10,6 +10,7 @@ namespace DAL
         }
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<TimeAlloted> TimeAllots { get; set; }
+        public virtual DbSet<Person> People { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

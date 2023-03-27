@@ -1,9 +1,9 @@
-﻿using Presentation.Pages;
+﻿using Services.Interfaces;
+using Services.Models;
 using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 
 namespace Presentation
 {
@@ -12,7 +12,14 @@ namespace Presentation
     /// </summary>
     public partial class Category : Page
     {
+        private ITimerService _service;
+
         public TimeSpan TimeElapsed { get; set; }
+        public Category(ITimerService service)
+        {
+            _service = service;
+            InitializeComponent();
+        }
         public Category()
         {
             InitializeComponent();
@@ -23,7 +30,7 @@ namespace Presentation
             TimeElapsed = t;
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
             var checkedValue = ControlGrid.Children.OfType<RadioButton>()
                         .FirstOrDefault(r => r.IsChecked.HasValue && r.IsChecked.Value);
@@ -38,6 +45,20 @@ namespace Presentation
                 if(textBox != null)
                 {
                     //get all content and save to db
+                    var timeInfo = new TimeInfo
+                    {
+                        firstName = "",
+                        lastName = "",
+                        type = nameFind,
+                        timeElapsed = TimeElapsed
+                    };
+
+                    var saved =  await _service.InsertNewTime(timeInfo);
+
+                    if (saved)
+                    {
+                        MessageBox.Show("Data saved");
+                    }
                 }
                 else
                 {

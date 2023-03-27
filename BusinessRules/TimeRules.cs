@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace BusinessRules
 {
-    public class TimeRules
+    public class TimeRules : BaseRules
     {
         public TimeRules()
         {
             
         }
+
     }
 }
