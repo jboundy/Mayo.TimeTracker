@@ -15,19 +15,11 @@ namespace Presentation
         private ITimerService _service;
 
         public TimeSpan TimeElapsed { get; set; }
+        public DateTime StartTime { get; set; }
         public Category(ITimerService service)
         {
             _service = service;
             InitializeComponent();
-        }
-        public Category()
-        {
-            InitializeComponent();
-        }
-
-        public Category(TimeSpan t) : this()
-        {
-            TimeElapsed = t;
         }
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
@@ -47,10 +39,12 @@ namespace Presentation
                     //get all content and save to db
                     var timeInfo = new TimeInfo
                     {
-                        firstName = "",
-                        lastName = "",
-                        type = nameFind,
-                        timeElapsed = TimeElapsed
+                        firstName = "test",
+                        lastName = "last",
+                        taskType = nameFind,
+                        timeElapsed = TimeElapsed,
+                        start = StartTime,
+                        amount = textBox.Text
                     };
 
                     var saved =  await _service.InsertNewTime(timeInfo);

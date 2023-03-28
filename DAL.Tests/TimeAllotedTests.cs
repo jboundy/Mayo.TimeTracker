@@ -21,15 +21,15 @@ namespace DAL.Tests
             var model = new TimeAlloted
             {
                 amount = 1.ToString(),
-                end = DateTime.Now.AddDays(1),
+                elapsedTime = new TimeSpan(0,0,30),
                 start = DateTime.Now,
                 taskId = 1
             };
 
             _context.TimeAllots.Add(model);
-            var saved =  _context.SaveChanges();
+            var saved =  _context.SaveChanges() == 1;
 
-            Assert.IsTrue(saved == 1);
+            Assert.IsTrue(saved);
         }
 
         [TestMethod]

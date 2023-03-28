@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services.Interfaces;
+using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
@@ -12,7 +13,10 @@ namespace Presentation.Pages
     /// </summary>
     public partial class Timer : Page
     {
-        public Stopwatch _timerWatch { get; set; }
+        private Stopwatch _timerWatch { get; set; }
+
+        private Category _catPage;
+
         public Timer()
         {
             InitializeComponent();
@@ -28,14 +32,15 @@ namespace Presentation.Pages
             else
             {
                 _timerWatch.Stop();
-                var page = new Category(_timerWatch.Elapsed);
-                NavigationService.Navigate(page);
+                _catPage.TimeElapsed = _timerWatch.Elapsed;
+                NavigationService.Navigate(_catPage);
             }
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             rbTimeStarted.IsChecked = true;
+            _catPage.StartTime = DateTime.Now;
             _timerWatch.Start();
         }
     }
