@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(TimeTrackerContext))]
-    [Migration("20230327005733_InitialCreate")]
+    [Migration("20230328190238_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -19,6 +19,21 @@ namespace DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
+
+            modelBuilder.Entity("DAL.ActivityTask", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Tasks");
+                });
 
             modelBuilder.Entity("DAL.Person", b =>
                 {
@@ -39,25 +54,13 @@ namespace DAL.Migrations
                     b.ToTable("People");
                 });
 
-            modelBuilder.Entity("DAL.Task", b =>
+            modelBuilder.Entity("DAL.TimeAlloted", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("type")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Tasks");
-                });
-
-            modelBuilder.Entity("DAL.TimeAlloted", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("ActivityTaskid")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("Personid")
@@ -66,7 +69,7 @@ namespace DAL.Migrations
                     b.Property<string>("amount")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("end")
+                    b.Property<TimeSpan>("elapsedTime")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("start")
@@ -77,6 +80,8 @@ namespace DAL.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("ActivityTaskid");
+
                     b.HasIndex("Personid");
 
                     b.ToTable("TimeAllots");
@@ -84,9 +89,17 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.TimeAlloted", b =>
                 {
+                    b.HasOne("DAL.ActivityTask", "ActivityTask")
+                        .WithMany()
+                        .HasForeignKey("ActivityTaskid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DAL.Person", null)
                         .WithMany("activities")
                         .HasForeignKey("Personid");
+
+                    b.Navigation("ActivityTask");
                 });
 
             modelBuilder.Entity("DAL.Person", b =>

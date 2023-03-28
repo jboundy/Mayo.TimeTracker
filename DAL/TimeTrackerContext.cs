@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DAL.Seed;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL
 {
@@ -15,6 +16,7 @@ namespace DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            new ActivityTaskSeeder(modelBuilder).Seed();
         }
     }
 }

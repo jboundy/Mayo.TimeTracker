@@ -31,3 +31,13 @@ the end result of the data
 	- this task my go 2 different ways. One thru the application 
 	and one thru excel to connect excel to sql lite and gather the 
 	data from the persisted data.
+
+### Getting Started
+To create the database run the following in the cli
+
+- dotnet tool install --global dotnet-ef
+- dotnet add package Microsoft.EntityFrameworkCore.Design
+- dotnet ef migrations add InitialCreate
+- dotnet ef database update
+
+To publish to a external source, you'll have to provide argmunets to the database update section

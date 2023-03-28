@@ -44,10 +44,11 @@ namespace DAL.Migrations
                 {
                     id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    taskId = table.Column<int>(type: "INTEGER", nullable: false),
                     start = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    end = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    elapsedTime = table.Column<TimeSpan>(type: "TEXT", nullable: false),
                     amount = table.Column<string>(type: "TEXT", nullable: true),
+                    taskId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ActivityTaskid = table.Column<int>(type: "INTEGER", nullable: false),
                     Personid = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -58,7 +59,18 @@ namespace DAL.Migrations
                         column: x => x.Personid,
                         principalTable: "People",
                         principalColumn: "id");
+                    table.ForeignKey(
+                        name: "FK_TimeAllots_Tasks_ActivityTaskid",
+                        column: x => x.ActivityTaskid,
+                        principalTable: "Tasks",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TimeAllots_ActivityTaskid",
+                table: "TimeAllots",
+                column: "ActivityTaskid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TimeAllots_Personid",
@@ -70,13 +82,13 @@ namespace DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Tasks");
-
-            migrationBuilder.DropTable(
                 name: "TimeAllots");
 
             migrationBuilder.DropTable(
                 name: "People");
+
+            migrationBuilder.DropTable(
+                name: "Tasks");
         }
     }
 }

@@ -35,6 +35,7 @@ namespace Presentation
                 .AddJsonFile(@"appsettings.json")
                 .Build();
 
+            var connectionString = configuration.GetConnectionString("Default");
             services.AddDbContext<TimeTrackerContext>(options =>
                 options.UseSqlite(configuration.GetConnectionString("Default")));
 
