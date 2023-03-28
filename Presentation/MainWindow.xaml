@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="800" Background="{x:Null}" Foreground="{x:Null}">
     <Grid>
-        <Frame Source="/Pages/Timer.xaml" NavigationUIVisibility="Hidden"></Frame>
+        <Frame x:Name="Timer" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
 </Window>

@@ -20,33 +20,35 @@ namespace Presentation
         {
             AppHost = Host
                .CreateDefaultBuilder()
-               .ConfigureServices((hostContext, services) =>
-               {
-                   services.AddSingleton<MainWindow>();
-                   //services.AddSingleton<SuperheroContext>();
-                   services.AddSingleton<ITimerService, TimerService>();
-                   services.AddSingleton<IReportService, ReportService>();
-
-                   IConfiguration configuration;
-
-                   configuration = new ConfigurationBuilder()
-                       .AddJsonFile(@"appsettings.json")
-                       .Build();
-
-                   services.AddDbContext<TimeTrackerContext>(options =>
-                       options.UseSqlite(configuration.GetConnectionString("Default")));
-               })
                .Build();
+
         }
 
         protected override async void OnStartup(StartupEventArgs e)
         {
             await AppHost!.StartAsync();
 
-            var startupForm = AppHost.Services.GetRequiredService<MainWindow>();
-            startupForm.Show();
+            var services = new ServiceCollection();
+            IConfiguration configuration;
 
-            base.OnStartup(e);
+            configuration = new ConfigurationBuilder()
+                .AddJsonFile(@"appsettings.json")
+                .Build();
+
+            services.AddDbContext<TimeTrackerContext>(options =>
+                options.UseSqlite(configuration.GetConnectionString("Default")));
+
+            services.AddSingleton<TimeTrackerContext>();
+            services.AddSingleton<ITimerService, TimerService>();
+            services.AddSingleton<IReportService, ReportService>();
+
+            services.AddTransient<MainWindow>();
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+
+            mainWindow.Show();
         }
     }
 }

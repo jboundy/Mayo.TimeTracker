@@ -1,26 +1,26 @@
-﻿using Services.Interfaces;
+﻿using Presentation.Interfaces;
+using Services.Interfaces;
 using System;
 using System.Diagnostics;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
 
 namespace Presentation.Pages
 {
     /// <summary>
     /// Interaction logic for Timer.xaml
     /// </summary>
-    public partial class Timer : Page
+    public partial class Timer : Page, IPageSetup
     {
         private Stopwatch _timerWatch { get; set; }
+        public ITimerService TimerService;
 
-        private Category _catPage;
+        public Category CategoryPage;
 
         public Timer()
         {
-            InitializeComponent();
             _timerWatch = new Stopwatch();
+            InitializeComponent();
         }
 
         private void btnStop_Click(object sender, RoutedEventArgs e)
@@ -32,16 +32,34 @@ namespace Presentation.Pages
             else
             {
                 _timerWatch.Stop();
-                _catPage.TimeElapsed = _timerWatch.Elapsed;
-                NavigationService.Navigate(_catPage);
+                CategoryPage.TimeElapsed = _timerWatch.Elapsed;
+                var wnd = Window.GetWindow(this);
+                wnd.Content = new { };
+                wnd.Content = CategoryPage;
+
             }
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
+            CategoryPage = new Category
+            {
+                TimerService = TimerService,
+                StartTime = DateTime.Now
+            };
+            CategoryPage.InitializeTimer(TimerService);
             rbTimeStarted.IsChecked = true;
-            _catPage.StartTime = DateTime.Now;
             _timerWatch.Start();
+        }
+
+        public void InitializeTimer(ITimerService timerService)
+        {
+            TimerService = timerService;
+        }
+
+        public void IntializeReport(IReportService reportService)
+        {
+            throw new NotImplementedException();
         }
     }
 }

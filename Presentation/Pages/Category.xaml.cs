@@ -1,4 +1,5 @@
-﻿using Services.Interfaces;
+﻿using Presentation.Interfaces;
+using Services.Interfaces;
 using Services.Models;
 using System;
 using System.Linq;
@@ -10,15 +11,13 @@ namespace Presentation
     /// <summary>
     /// Interaction logic for Category.xaml
     /// </summary>
-    public partial class Category : Page
+    public partial class Category : Page, IPageSetup
     {
-        private ITimerService _service;
-
+        public ITimerService TimerService;
         public TimeSpan TimeElapsed { get; set; }
         public DateTime StartTime { get; set; }
-        public Category(ITimerService service)
+        public Category()
         {
-            _service = service;
             InitializeComponent();
         }
 
@@ -47,7 +46,7 @@ namespace Presentation
                         amount = textBox.Text
                     };
 
-                    var saved =  await _service.InsertNewTime(timeInfo);
+                    var saved =  await TimerService.InsertNewTime(timeInfo);
 
                     if (saved)
                     {
@@ -63,6 +62,16 @@ namespace Presentation
             {
                 MessageBox.Show("No category has been selected");
             }
+        }
+
+        public void InitializeTimer(ITimerService timerService)
+        {
+            TimerService = timerService;
+        }
+
+        public void IntializeReport(IReportService reportService)
+        {
+            throw new NotImplementedException();
         }
     }
 }
