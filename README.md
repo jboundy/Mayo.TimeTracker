@@ -41,3 +41,14 @@ To create the database run the following in the cli
 - dotnet ef database update
 
 To publish to a external source, you'll have to provide argmunets to the database update section
+
+To make alterations to the database, make changes to the models in the DAL project. 
+Then run the following commands in the cli
+- dotnet ef migrations add NameForYourMigration
+- dotnet ef database update
+
+If you want to revert the migration run the following command
+- dotnet ef migrations remove
+
+More information about migrations can be found here
+https://learn.microsoft.com/en-us/ef/core/cli/dotnet

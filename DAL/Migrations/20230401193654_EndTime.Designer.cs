@@ -3,6 +3,7 @@ using System;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(TimeTrackerContext))]
-    partial class TimeTrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20230401193654_EndTime")]
+    partial class EndTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.4");
@@ -147,12 +150,6 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ActivityTaskid")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Personid")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("amount")
                         .HasColumnType("TEXT");
 
@@ -167,10 +164,6 @@ namespace DAL.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("ActivityTaskid");
-
-                    b.HasIndex("Personid");
-
                     b.ToTable("TimeAlloted");
                 });
 
@@ -178,13 +171,13 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.ActivityTask", "ActivityTask")
                         .WithMany()
-                        .HasForeignKey("ActivityTaskid")
+                        .HasForeignKey("id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DAL.Person", "Person")
                         .WithMany()
-                        .HasForeignKey("Personid")
+                        .HasForeignKey("id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

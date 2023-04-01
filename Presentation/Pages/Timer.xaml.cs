@@ -27,8 +27,6 @@ namespace Presentation.Pages
 
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
-            //todo: need to make once instance of a datetime object to keep the time synced
-            // remove StartTime initialization and calculate start time when button stop is clicked
             if (!_timerWatch.IsRunning)
             {
                 MessageBox.Show("Timer is not running");
@@ -36,8 +34,10 @@ namespace Presentation.Pages
             else
             {
                 _timerWatch.Stop();
+                var currentTime = DateTime.Now;
+                CategoryPage.StartTime = currentTime.Subtract(_timerWatch.Elapsed);
                 CategoryPage.TimeElapsed = _timerWatch.Elapsed;
-                
+                CategoryPage.EndTime = currentTime;
                 //hack: empty the content on the window and replace with new content is the "navigation"
                 var wnd = Window.GetWindow(this);
                 wnd.Content = new { };

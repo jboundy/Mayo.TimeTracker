@@ -1,5 +1,6 @@
 ﻿using Presentation.Dependencies;
 using Presentation.Interfaces;
+using Presentation.Pages;
 using Services.Interfaces;
 using Services.Models;
 using System;
@@ -17,11 +18,14 @@ namespace Presentation
 
         public TimeSpan TimeElapsed { get; set; }
         public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; internal set; }
         private ITimerService _timerService;
         private UserInformation _userInfo;
+        private Timer _timerPage;
 
         public Category()
         {
+            _timerPage = new Timer();
             InitializeComponent();
         }
 
@@ -46,6 +50,7 @@ namespace Presentation
                         taskType = nameFind,
                         timeElapsed = TimeElapsed,
                         start = StartTime,
+                        end = EndTime,
                         amount = textBox.Text
                     };
 
@@ -54,6 +59,12 @@ namespace Presentation
                     if (saved)
                     {
                         MessageBox.Show("Data saved");
+                        //hack: empty the content on the window and replace with new content is the "navigation"
+                        var wnd = Window.GetWindow(this);
+                        wnd.Content = new { };
+                        _timerPage.InitializeTimer(_timerService);
+                        _timerPage.UserSetup(_userInfo);
+                        wnd.Content = _timerPage;
                     }
                 }
                 else

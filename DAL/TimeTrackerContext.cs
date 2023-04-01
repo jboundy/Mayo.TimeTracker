@@ -16,7 +16,17 @@ namespace DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<ActivityTask>()
+                .Property(e => e.id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<TimeAlloted>()
+                .Property(e => e.id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Person>()
+                .Property(e => e.id)
+                .ValueGeneratedOnAdd();
             new ActivityTaskSeeder(modelBuilder).Seed();
+            new PersonSeeder(modelBuilder).Seed();
         }
     }
 }

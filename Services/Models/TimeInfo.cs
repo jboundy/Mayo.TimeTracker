@@ -13,6 +13,7 @@ namespace Services.Models
         public string lastName { get; set; }
         public TimeSpan timeElapsed { get; set; }
         public DateTime start { get; set; }
+        public DateTime end { get; set; }
         public string amount { get; set; }
     }
 }
