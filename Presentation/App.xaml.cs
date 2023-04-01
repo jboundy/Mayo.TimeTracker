@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Presentation.Dependencies;
 using Services;
 using Services.Interfaces;
 using System.Windows;
@@ -42,6 +43,7 @@ namespace Presentation
             services.AddSingleton<TimeTrackerContext>();
             services.AddSingleton<ITimerService, TimerService>();
             services.AddSingleton<IReportService, ReportService>();
+            services.AddSingleton<UserInformation>();
 
             services.AddTransient<MainWindow>();
 

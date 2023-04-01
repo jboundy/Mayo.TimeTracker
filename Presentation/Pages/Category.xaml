@@ -25,22 +25,22 @@
         <RadioButton x:Name="rbSystemIssues" Content="System Issues" HorizontalAlignment="Left" Margin="141,489,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="rbBreak" Content="15 Minute Break" HorizontalAlignment="Left" Margin="141,520,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="rbOther" Content="Other" HorizontalAlignment="Left" Margin="141,549,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbClaimScrubber" HorizontalAlignment="Left" Margin="318,76,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbCorrespondence" HorizontalAlignment="Left" Margin="318,111,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbCBR" HorizontalAlignment="Left" Margin="318,138,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbEducation" HorizontalAlignment="Left" Margin="318,166,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="tbEmails" HorizontalAlignment="Left" Margin="318,202,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbErrorChecks" HorizontalAlignment="Left" Margin="318,231,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbFollowDenial" HorizontalAlignment="Left" Margin="318,265,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbRmindersBillingInqu" HorizontalAlignment="Left" Margin="318,299,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbMeetings" HorizontalAlignment="Left" Margin="318,328,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbReports" HorizontalAlignment="Left" Margin="318,360,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbRycan" HorizontalAlignment="Left" Margin="318,393,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Height="18"/>
-        <TextBox x:Name="tbSpecialProjects" HorizontalAlignment="Left" Margin="318,424,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbTraining" HorizontalAlignment="Left" Margin="318,455,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbSystemIssues" HorizontalAlignment="Left" Margin="318,489,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbBreak" HorizontalAlignment="Left" Margin="318,520,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="tbOther" HorizontalAlignment="Left" Margin="318,549,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbClaimScrubber" HorizontalAlignment="Left" Margin="318,76,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbCorrespondence" HorizontalAlignment="Left" Margin="318,111,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbCBR" HorizontalAlignment="Left" Margin="318,138,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbEducation" HorizontalAlignment="Left" Margin="318,166,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="tbEmails" HorizontalAlignment="Left" Margin="318,202,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbErrorChecks" HorizontalAlignment="Left" Margin="318,231,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbFollowDenial" HorizontalAlignment="Left" Margin="318,265,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbRmindersBillingInqu" HorizontalAlignment="Left" Margin="318,299,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbMeetings" HorizontalAlignment="Left" Margin="318,328,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbReports" HorizontalAlignment="Left" Margin="318,360,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbRycan" HorizontalAlignment="Left" Margin="318,393,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="18"/>
+        <TextBox x:Name="tbSpecialProjects" HorizontalAlignment="Left" Margin="318,424,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbTraining" HorizontalAlignment="Left" Margin="318,455,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbSystemIssues" HorizontalAlignment="Left" Margin="318,489,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbBreak" HorizontalAlignment="Left" Margin="318,520,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbOther" HorizontalAlignment="Left" Margin="318,549,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="cbReports" HorizontalAlignment="Left" Margin="451,358,0,0" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="lblClaimScrubber" Content="# Completed" HorizontalAlignment="Left" Margin="591,72,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblCorrespondence" Content="# Completed" HorizontalAlignment="Left" Margin="591,109,0,0" VerticalAlignment="Top"/>
@@ -58,6 +58,6 @@
         <Label x:Name="lblBreak" Content="Time Out" HorizontalAlignment="Left" Margin="591,517,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblSystemIssues" Content="Description" HorizontalAlignment="Left" Margin="593,486,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblOther" Content="Description" HorizontalAlignment="Left" Margin="591,545,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="342,599,0,0" VerticalAlignment="Top" Height="42" Width="130" Click="btnSave_Click"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="318,598,0,0" VerticalAlignment="Top" Height="42" Width="130" Click="btnSave_Click"/>
     </Grid>
 </Page>

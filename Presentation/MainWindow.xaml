@@ -8,5 +8,23 @@
         Title="MainWindow" Height="700" Width="800" Background="{x:Null}" Foreground="{x:Null}">
     <Grid>
         <Frame x:Name="Timer" NavigationUIVisibility="Hidden"></Frame>
+        <Border x:Name="bLogin"
+                Visibility="Hidden"
+                MinWidth="250"
+                Background="white" 
+                BorderBrush="Black" 
+                BorderThickness="1" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center">
+            <StackPanel>
+                <TextBlock Margin="5" Text="Input Box:" FontWeight="Bold" FontFamily="Cambria" />
+                <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="tbFirst"/>
+                <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="tbLast"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="btnOk" Margin="5" Content="Ok" Background="{x:Null}" Click="btnOk_Click"/>
+                    <Button x:Name="btnCancel" Margin="5" Content="Cancel" Background="{x:Null}" Click="btnCancel_Click" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

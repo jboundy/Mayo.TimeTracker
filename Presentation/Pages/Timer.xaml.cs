@@ -1,4 +1,5 @@
-﻿using Presentation.Interfaces;
+﻿using Presentation.Dependencies;
+using Presentation.Interfaces;
 using Services.Interfaces;
 using System;
 using System.Diagnostics;
@@ -16,6 +17,7 @@ namespace Presentation.Pages
         public ITimerService TimerService;
 
         public Category CategoryPage;
+        private UserInformation _userInfo;
 
         public Timer()
         {
@@ -25,6 +27,8 @@ namespace Presentation.Pages
 
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
+            //todo: need to make once instance of a datetime object to keep the time synced
+            // remove StartTime initialization and calculate start time when button stop is clicked
             if (!_timerWatch.IsRunning)
             {
                 MessageBox.Show("Timer is not running");
@@ -33,21 +37,19 @@ namespace Presentation.Pages
             {
                 _timerWatch.Stop();
                 CategoryPage.TimeElapsed = _timerWatch.Elapsed;
+                
+                //hack: empty the content on the window and replace with new content is the "navigation"
                 var wnd = Window.GetWindow(this);
                 wnd.Content = new { };
                 wnd.Content = CategoryPage;
-
             }
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            CategoryPage = new Category
-            {
-                TimerService = TimerService,
-                StartTime = DateTime.Now
-            };
+            CategoryPage = new Category();
             CategoryPage.InitializeTimer(TimerService);
+            CategoryPage.UserSetup(_userInfo);
             rbTimeStarted.IsChecked = true;
             _timerWatch.Start();
         }
@@ -60,6 +62,11 @@ namespace Presentation.Pages
         public void IntializeReport(IReportService reportService)
         {
             throw new NotImplementedException();
+        }
+
+        public void UserSetup(UserInformation userInfo)
+        {
+            _userInfo = userInfo;
         }
     }
 }

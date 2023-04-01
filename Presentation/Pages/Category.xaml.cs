@@ -1,4 +1,5 @@
-﻿using Presentation.Interfaces;
+﻿using Presentation.Dependencies;
+using Presentation.Interfaces;
 using Services.Interfaces;
 using Services.Models;
 using System;
@@ -13,9 +14,12 @@ namespace Presentation
     /// </summary>
     public partial class Category : Page, IPageSetup
     {
-        public ITimerService TimerService;
+
         public TimeSpan TimeElapsed { get; set; }
         public DateTime StartTime { get; set; }
+        private ITimerService _timerService;
+        private UserInformation _userInfo;
+
         public Category()
         {
             InitializeComponent();
@@ -35,18 +39,17 @@ namespace Presentation
 
                 if(textBox != null)
                 {
-                    //get all content and save to db
                     var timeInfo = new TimeInfo
                     {
-                        firstName = "test",
-                        lastName = "last",
+                        firstName = _userInfo.FirstName,
+                        lastName = _userInfo.LastName,
                         taskType = nameFind,
                         timeElapsed = TimeElapsed,
                         start = StartTime,
                         amount = textBox.Text
                     };
 
-                    var saved =  await TimerService.InsertNewTime(timeInfo);
+                    var saved =  await _timerService.InsertNewTime(timeInfo);
 
                     if (saved)
                     {
@@ -66,12 +69,17 @@ namespace Presentation
 
         public void InitializeTimer(ITimerService timerService)
         {
-            TimerService = timerService;
+            _timerService = timerService;
         }
 
         public void IntializeReport(IReportService reportService)
         {
             throw new NotImplementedException();
+        }
+
+        public void UserSetup(UserInformation userInfo)
+        {
+            _userInfo = userInfo;
         }
     }
 }
