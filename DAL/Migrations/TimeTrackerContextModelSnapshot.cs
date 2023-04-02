@@ -156,8 +156,8 @@ namespace DAL.Migrations
                     b.Property<string>("amount")
                         .HasColumnType("TEXT");
 
-                    b.Property<TimeSpan>("elapsedTime")
-                        .HasColumnType("TEXT");
+                    b.Property<double>("elapsedTime")
+                        .HasColumnType("REAL");
 
                     b.Property<DateTime>("end")
                         .HasColumnType("TEXT");

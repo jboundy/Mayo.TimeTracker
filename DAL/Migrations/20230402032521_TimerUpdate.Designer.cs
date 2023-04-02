@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(TimeTrackerContext))]
-    [Migration("20230401201205_NoForeignKeys")]
-    partial class NoForeignKeys
+    [Migration("20230402032521_TimerUpdate")]
+    partial class TimerUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -159,8 +159,8 @@ namespace DAL.Migrations
                     b.Property<string>("amount")
                         .HasColumnType("TEXT");
 
-                    b.Property<TimeSpan>("elapsedTime")
-                        .HasColumnType("TEXT");
+                    b.Property<double>("elapsedTime")
+                        .HasColumnType("REAL");
 
                     b.Property<DateTime>("end")
                         .HasColumnType("TEXT");

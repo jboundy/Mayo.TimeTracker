@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(TimeTrackerContext))]
-    [Migration("20230328191716_SeedData")]
-    partial class SeedData
+    [Migration("20230401202533_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,7 +32,7 @@ namespace DAL.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("ActivityTask");
 
                     b.HasData(
                         new
@@ -133,7 +133,15 @@ namespace DAL.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("People");
+                    b.ToTable("Person");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            firstname = "Justin",
+                            lastname = "Boundy"
+                        });
                 });
 
             modelBuilder.Entity("DAL.TimeAlloted", b =>
@@ -145,7 +153,7 @@ namespace DAL.Migrations
                     b.Property<int>("ActivityTaskid")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("Personid")
+                    b.Property<int>("Personid")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("amount")
@@ -154,11 +162,11 @@ namespace DAL.Migrations
                     b.Property<TimeSpan>("elapsedTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("start")
+                    b.Property<DateTime>("end")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("taskId")
-                        .HasColumnType("INTEGER");
+                    b.Property<DateTime>("start")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("id");
 
@@ -166,7 +174,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("Personid");
 
-                    b.ToTable("TimeAllots");
+                    b.ToTable("TimeAlloted");
                 });
 
             modelBuilder.Entity("DAL.TimeAlloted", b =>
@@ -177,16 +185,15 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAL.Person", null)
-                        .WithMany("activities")
-                        .HasForeignKey("Personid");
+                    b.HasOne("DAL.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("Personid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ActivityTask");
-                });
 
-            modelBuilder.Entity("DAL.Person", b =>
-                {
-                    b.Navigation("activities");
+                    b.Navigation("Person");
                 });
 #pragma warning restore 612, 618
         }

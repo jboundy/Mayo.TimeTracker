@@ -25,7 +25,7 @@ namespace DAL.Tests
             {
                 id = 1,
                 amount = 1.ToString(),
-                elapsedTime = new TimeSpan(0,0,30),
+                elapsedTime = .5,
                 start = DateTime.Now.AddMinutes(-1),
                 end = datetime,
                 Person = person,
@@ -35,7 +35,7 @@ namespace DAL.Tests
             var saved = false;
             try
             {
-                _context.TimeAllots.Add(model);
+                _context.TimeAlloted.Add(model);
                 saved = _context.SaveChanges() == 1;
             }
             catch(Exception e)
@@ -50,7 +50,7 @@ namespace DAL.Tests
         [TestMethod]
         public void CanGetTimeById()
         {
-            var record = _context.TimeAllots.Find(1);
+            var record = _context.TimeAlloted.Find(1);
 
             Assert.IsTrue(record?.id == 1);
         }

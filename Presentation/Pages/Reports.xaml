@@ -10,5 +10,6 @@
 
     <Grid Background="#FF034D1A">
         <Label x:Name="lblReports" Content="REPORTS" HorizontalAlignment="Left" Margin="289,29,0,0" VerticalAlignment="Top" FontSize="48"/>
+        <Button x:Name="btnDaily" Content="Get Todays Report" HorizontalAlignment="Left" Margin="91,139,0,0" VerticalAlignment="Top" Height="69" Width="162" Click="btnDaily_Click"/>
     </Grid>
 </Page>

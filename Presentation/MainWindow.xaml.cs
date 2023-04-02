@@ -41,6 +41,7 @@ namespace Presentation
         {
             var timerPageView = new Timer();
             timerPageView.InitializeTimer(_timerService);
+            timerPageView.InitalizeReport(_reportService);
             _userInfo.FirstName = tbFirst.Text;
             _userInfo.LastName = tbLast.Text;
             timerPageView.UserSetup(_userInfo);

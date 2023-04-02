@@ -22,6 +22,7 @@ namespace Presentation
         private ITimerService _timerService;
         private UserInformation _userInfo;
         private Timer _timerPage;
+        private IReportService _reportService;
 
         public Category()
         {
@@ -62,8 +63,7 @@ namespace Presentation
                         //hack: empty the content on the window and replace with new content is the "navigation"
                         var wnd = Window.GetWindow(this);
                         wnd.Content = new { };
-                        _timerPage.InitializeTimer(_timerService);
-                        _timerPage.UserSetup(_userInfo);
+                        InitializeDependencies();
                         wnd.Content = _timerPage;
                     }
                 }
@@ -78,14 +78,21 @@ namespace Presentation
             }
         }
 
+        private void InitializeDependencies()
+        {
+            _timerPage.InitializeTimer(_timerService);
+            _timerPage.InitalizeReport(_reportService);
+            _timerPage.UserSetup(_userInfo);
+        }
+
         public void InitializeTimer(ITimerService timerService)
         {
             _timerService = timerService;
         }
 
-        public void IntializeReport(IReportService reportService)
+        public void InitalizeReport(IReportService reportService)
         {
-            throw new NotImplementedException();
+            _reportService = reportService;
         }
 
         public void UserSetup(UserInformation userInfo)

@@ -1,5 +1,6 @@
 ﻿using Presentation.Dependencies;
 using Presentation.Interfaces;
+using Services;
 using Services.Interfaces;
 using System;
 using System.Diagnostics;
@@ -14,10 +15,10 @@ namespace Presentation.Pages
     public partial class Timer : Page, IPageSetup
     {
         private Stopwatch _timerWatch { get; set; }
-        public ITimerService TimerService;
-
         public Category CategoryPage;
         private UserInformation _userInfo;
+        private IReportService _reportService;
+        public ITimerService _timerService;
 
         public Timer()
         {
@@ -48,20 +49,35 @@ namespace Presentation.Pages
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             CategoryPage = new Category();
-            CategoryPage.InitializeTimer(TimerService);
-            CategoryPage.UserSetup(_userInfo);
+            InitializeDependencies();
             rbTimeStarted.IsChecked = true;
             _timerWatch.Start();
         }
 
-        public void InitializeTimer(ITimerService timerService)
+        private void button_Click(object sender, RoutedEventArgs e)
         {
-            TimerService = timerService;
+            var reportPage = new Reports();
+            reportPage.InitalizeReport(_reportService);
+            var wnd = Window.GetWindow(this);
+            wnd.Content = new { };
+            wnd.Content = reportPage;
         }
 
-        public void IntializeReport(IReportService reportService)
+        private void InitializeDependencies()
         {
-            throw new NotImplementedException();
+            CategoryPage.InitializeTimer(_timerService);
+            CategoryPage.InitalizeReport(_reportService);
+            CategoryPage.UserSetup(_userInfo);
+        }
+
+        public void InitializeTimer(ITimerService timerService)
+        {
+            _timerService = timerService;
+        }
+
+        public void InitalizeReport(IReportService reportService)
+        {
+            _reportService = reportService;
         }
 
         public void UserSetup(UserInformation userInfo)

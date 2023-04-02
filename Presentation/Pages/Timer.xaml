@@ -16,6 +16,7 @@
                 <Button x:Name="btnStart" Content="START!!!" HorizontalAlignment="Left" Margin="57,180,0,231" Background="#FF0A5302" Foreground="White" FontSize="48" Width="273" Click="btnStart_Click"/>
                 <Button x:Name="btnStop" Content="STOP!!!" Margin="439,180,56,231" FontSize="48" Click="btnStop_Click" Background="#FF6A1603" Foreground="White" />
                 <Label x:Name="lblTimeStarted" Content="Task time being recorded" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.179,0.247" Margin="328,102,0,0" Background="#FFCA79E5"/>
+                <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="295,385,0,0" VerticalAlignment="Top" Height="60" Width="182" Click="button_Click"/>
             </Grid>
         </DockPanel>
     </Grid>
